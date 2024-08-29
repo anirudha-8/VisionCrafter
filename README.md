@@ -1,4 +1,4 @@
-# 🎨 VisionCrafter
+# 🎨 VisionCrafter: AI Image Generator
 
 VisionCrafter is a community-driven platform where users can create and share AI-generated images using DALL-E! The project allows users to input prompts and showcase their creativity to the world.
 
