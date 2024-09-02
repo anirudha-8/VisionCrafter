@@ -19,7 +19,7 @@ function Home() {
 	const [searchText, setSearchText] = useState("");
 
 	return (
-		<section>
+		<section className="max-w-7xl mx-auto">
 			<div>
 				<h1 className="font-extrabold text-[#222328] text-[32px] ">
 					The Community Showcase
