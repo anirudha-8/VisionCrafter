@@ -29,7 +29,7 @@ function CreatePost() {
 			<form className="mt-16 max-w-3xl" onSubmit={handleSubmit}>
 				<div className="flex flex-col gap-5">
 					<FormField
-						label="Your name"
+						labelName="Your name"
 						type="text"
 						name="name"
 						placeholder="John Doe"
@@ -37,7 +37,7 @@ function CreatePost() {
 						handleChange={handleChange}
 					/>
 					<FormField
-						label="Prompt"
+						labelName="Prompt"
 						type="text"
 						name="prompt"
 						placeholder="A photo of a white fur monster standing in a purple room"
