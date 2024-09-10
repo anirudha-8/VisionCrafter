@@ -7,22 +7,70 @@ import { FormField, Loader } from "../components";
 
 function CreatePost() {
 	const navigate = useNavigate();
+
 	const [form, setForm] = useState({
 		name: "",
 		prompt: "",
 		photo: "",
 	});
+
 	const [generatingImg, setGeneratingImg] = useState(false);
+
 	const [loading, setLoading] = useState(false);
-	const generateImage = () => {};
+
+	const generateImage = async () => {
+		if (form.prompt) {
+			try {
+				setGeneratingImg(true);
+				const response = await fetch("http://localhost:8080/api/v1/dalle", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({ prompt: form.prompt }),
+				});
+
+				// Check if the response is JSON
+				const contentType = response.headers.get("content-type");
+
+				if (!response.ok) {
+					// Handle non-OK responses properly
+					const errorData = await response.text(); // Capture the actual response text
+					throw new Error(errorData || "Failed to generate image");
+				}
+
+				if (contentType && contentType.includes("application/json")) {
+					const data = await response.json();
+					if (data?.photo) {
+						setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` });
+					} else {
+						alert("Failed to retrieve image from the server.");
+					}
+				} else {
+					const errorText = await response.text(); // Capture non-JSON response
+					throw new Error(errorText || "Server response is not in JSON format");
+				}
+			} catch (error) {
+				alert(`Error: ${error.message}`);
+			} finally {
+				setGeneratingImg(false);
+			}
+		} else {
+			alert("Please, enter a prompt");
+		}
+	};
+
 	const handleSubmit = () => {};
+
 	const handleChange = (e) => {
 		setForm({ ...form, [e.target.name]: e.target.value });
 	};
+
 	const handleSurpriseMe = () => {
 		const randomPrompt = getRandomPrompt(form.prompt);
 		setForm({ ...form, prompt: randomPrompt });
 	};
+
 	return (
 		<section className="max-w-7xl mx-auto">
 			<div>
