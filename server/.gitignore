@@ -1,0 +1,14 @@
+# Ignore node_modules directory
+node_modules/
+
+# Ignore environment variables
+.env
+
+# Ignore log files (if any are generated in the future)
+*.log
+
+# Ignore lock files (optional)
+package-lock.json
+
+# Ignore any database-specific files or data (mongodb folder, if it contains sensitive data or backups)
+mongodb/
